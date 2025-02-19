@@ -26,11 +26,7 @@ public class KeycloakService
 
     var content = new FormUrlEncodedContent(new[]
     {
-       // new KeyValuePair<string, string>("client_id", "admin-cli"),
-        //new KeyValuePair<string, string>("username", "wahidustoz"),
-        //new KeyValuePair<string, string>("password", "fUchem-zytpaq-3hetwy"),
-
-           new KeyValuePair<string, string>("client_id", _settings.ClientId),
+        new KeyValuePair<string, string>("client_id", _settings.ClientId),
         new KeyValuePair<string, string>("username", "admin"),
         new KeyValuePair<string, string>("password", "admin"),
         new KeyValuePair<string, string>("grant_type", "password")
