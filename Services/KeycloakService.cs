@@ -19,7 +19,7 @@ public class KeycloakService
         _settings = settings.Value;
     }
 
-    // 🔹 ADMIN TOKENNI OLISH
+
  public async Task<string> GetAdminTokenAsync()
 {
     if (!string.IsNullOrEmpty(_adminToken)) return _adminToken;
@@ -42,7 +42,6 @@ public class KeycloakService
 
     var json = await response.Content.ReadAsStringAsync();
 
-    // ✅ **TO‘G‘RI DESERIALIZE QILISH**
     var tokenResponse = JsonSerializer.Deserialize<KeycloakTokenResponse>(json);
 
     if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.AccessToken))
@@ -54,11 +53,6 @@ public class KeycloakService
     return _adminToken;
 }
 
-// 🔹 **Token response modeli**
-
-
-
-    // 🔹 FOYDALANUVCHI QO‘SHISH VA ROLE BIRIKTIRISH
    public async Task<bool> CreateUserAsync(string username, string password, List<string> roles)
 {
     var token = await GetAdminTokenAsync();
@@ -116,7 +110,6 @@ public class KeycloakService
 }
 
 
-    // 🔹 FOYDALANUVCHI LOGIN QILISH
   public async Task<string?> LoginAsync(string username, string password)
 {
     var content = new FormUrlEncodedContent(new[]
@@ -137,7 +130,6 @@ public class KeycloakService
 
     var json = await response.Content.ReadAsStringAsync();
 
-    // ✅ **TO‘G‘RI DESERIALIZE QILISH**
     var tokenResponse = JsonSerializer.Deserialize<KeycloakTokenResponse>(json);
 
     if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.AccessToken))
@@ -147,12 +139,6 @@ public class KeycloakService
 
     return tokenResponse.AccessToken;
 }
-
-// 🔹 **Token response modeli**
-
-
-
-    // 🔹 BARCHA FOYDALANUVCHILARNI OLISH
     public async Task<List<object>> GetUsersAsync()
     {
         var token = await GetAdminTokenAsync();
@@ -165,7 +151,6 @@ public class KeycloakService
         return JsonSerializer.Deserialize<List<object>>(json);
     }
 
-    // 🔹 FOYDALANUVCHI O‘CHIRISH
     public async Task<bool> DeleteUserAsync(string userId)
     {
         var token = await GetAdminTokenAsync();
@@ -175,7 +160,6 @@ public class KeycloakService
         return response.IsSuccessStatusCode;
     }
 
-    // 🔹 ROLELARNI OLISH
     public async Task<List<object>> GetRolesAsync()
     {
         var token = await GetAdminTokenAsync();
@@ -207,7 +191,6 @@ public async Task<bool> UpdateUserAsync(string userId, string newUsername, strin
         throw new Exception($"Foydalanuvchi ma'lumotlarini yangilashda xatolik: {userUpdateResponse.StatusCode}, {error}");
     }
 
-    // 🔹 **Parolni yangilash**
     var passwordUpdatePayload = new
     {
         type = "password",
